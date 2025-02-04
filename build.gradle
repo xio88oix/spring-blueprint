@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+    id 'war'
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework:spring-context:6.1.13'
+    implementation 'org.springframework:spring-webmvc:6.1.13'
+    testImplementation 'junit:junit:4.13.1'
+}
+
+war {
+    baseName = 'my-application'
+}
