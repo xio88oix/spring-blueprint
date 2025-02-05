@@ -6,15 +6,45 @@ plugins {
 group = 'com.example'
 version = '1.0-SNAPSHOT'
 sourceCompatibility = '17'
+targetCompatibility = '17'
 
 repositories {
     mavenCentral()
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
 dependencies {
+    //Spring Core Dependencies
     implementation 'org.springframework:spring-context:6.1.13'
     implementation 'org.springframework:spring-webmvc:6.1.13'
-    testImplementation 'junit:junit:4.13.1'
+
+    //Jakarta EE API for Servlets
+    providedCompile 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+
+    //Loggin (SLF4J + Logback)
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+    implementation 'ch.qos.logback:logback-classic:1.4.11'
+
+    //Tomcat as the runtime dependency
+    providedRuntime 'org.apache.tomcat.embed:tomcat-embed-core:10.1.28'
+
+    //Testing
+    testImplementation 'org.junit.jupiter:unit-jupiter:5.9.2'
+    testImplementation 'org.springframework:spring-test:6.1.13'
+    //testImplementation 'junit:junit:4.13.1'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
 }
 
 war {
